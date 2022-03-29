@@ -1,3 +1,7 @@
+<?php
+$hello = 'Hello World!';
+?>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,6 +10,6 @@
     <title>Scripture API PHP Test</title>
   </head>
   <body>
-    <h1>Scripture API PHP Test</h1>
+    <h1>{$hello}</h1>
   </body>
 </html>
