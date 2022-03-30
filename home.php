@@ -1,19 +1,28 @@
 <?php
+// Home page of the app
 
 // Autoload Composer packages
 require __DIR__ . '/vendor/autoload.php';
 
+// GraphQL imports
 use GraphQL\Client;
 use GraphQL\Exception\QueryError;
 use GraphQL\QueryBuilder\QueryBuilder;
 use GraphQL\RawObject;
 
+// Set up the GraphQL client
 $client = new Client(
     'https://lds-scripture-api.herokuapp.com/v1/graphql'
 );
 
+// Function: getBooks()
+// @Param: $client - the GraphQL client to fetch from
+// @Param: $volumeId - in this case we only want books from volume 2
+// This function builds a graphql query and runs it, returning the results
+// in array form.
 function getBooks($client, $volumeId = 2)
 {
+    // Build the GraphQL query
     $builder = (new QueryBuilder())
         ->setVariable('volumeId', 'Int', true)
         ->selectField(
@@ -25,10 +34,11 @@ function getBooks($client, $volumeId = 2)
     $gql = $builder->getQuery();
 
     try {
+        // Set the variable from the book select and grab the results
         $variablesArray = ['volumeId' => $volumeId];
         $results = $client->runQuery($gql, true, $variablesArray);
     } catch (QueryError $exception) {
-        // Catch query error and desplay error details
+        // Catch query error and display error details
         print_r($exception->getErrorDetails());
         exit;
     }
@@ -39,63 +49,7 @@ function getBooks($client, $volumeId = 2)
     return $results->getData()['books'];
 }
 
-function getChapters($client, $bookId = 1)
-{
-    $builder = (new QueryBuilder())
-        ->setVariable('bookId', 'Int', true)
-        ->selectField(
-            (new QueryBuilder('chapters'))
-                ->setArgument('where', new RawObject('{ book: { id: { _eq: $bookId } } }'))
-                ->selectField('id')
-                ->selectField('chapterNumber')
-        );
-    $gql = $builder->getQuery();
-
-    try {
-        $variablesArray = ['bookId' => $bookId];
-        $results = $client->runQuery($gql, true, $variablesArray);
-    } catch (QueryError $exception) {
-        // Catch query error and desplay error details
-        print_r($exception->getErrorDetails());
-        exit;
-    }
-
-    // Reformat the results to an array and get the results of part of the array
-    $results->reformatResults(true);
-
-    return $results->getData()['chapters'];
-}
-
-function getVerses($client, $chapterId = 1)
-{
-    $builder = (new QueryBuilder())
-        ->setVariable('chapterId', 'smallint', true)
-        ->selectField(
-            (new QueryBuilder('verses'))
-                ->setArgument('where', new RawObject('{ chapterId: { _eq: $chapterId } }'))
-                ->selectField('id')
-                ->selectField('verseNumber')
-        );
-    $gql = $builder->getQuery();
-
-    try {
-        $variablesArray = ['chapterId' => $chapterId];
-        $results = $client->runQuery($gql, true, $variablesArray);
-    } catch (QueryError $exception) {
-        // Catch query error and desplay error details
-        print_r($exception->getErrorDetails());
-        exit;
-    }
-
-    // Reformat the results to an array and get the results of part of the array
-    $results->reformatResults(true);
-
-    return $results->getData()['verses'];
-}
-
 $initial_books = getBooks($client);
-$initial_chapters = getChapters($client);
-$initial_verses = getVerses($client);
 
 ?>
 

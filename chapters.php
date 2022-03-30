@@ -1,17 +1,22 @@
 <?php
+// Chapters API endpoint. Queries the graphql api for
+// chapters where the bookId matches the select dropdown.
 
 // Autoload Composer packages
 require __DIR__ . '/vendor/autoload.php';
 
+// GraphQL imports
 use GraphQL\Client;
 use GraphQL\Exception\QueryError;
 use GraphQL\QueryBuilder\QueryBuilder;
 use GraphQL\RawObject;
 
+// Set up the GraphQL client
 $client = new Client(
     'https://lds-scripture-api.herokuapp.com/v1/graphql'
 );
 
+// Build the GraphQL query
 $builder = (new QueryBuilder())
     ->setVariable('bookId', 'Int', true)
     ->selectField(
@@ -23,6 +28,7 @@ $builder = (new QueryBuilder())
 $gql = $builder->getQuery();
 
 try {
+    // Set the variable from the book select and grab the results
     $variablesArray = ['bookId' => $_GET['id']];
     $results = $client->runQuery($gql, true, $variablesArray);
 } catch (QueryError $exception) {
@@ -31,7 +37,5 @@ try {
     exit;
 }
 
-// Reformat the results to an array and get the results of part of the array
-// $results->reformatResults(true);
-
+// Print the results as json
 echo json_encode($results->getData()['chapters']);

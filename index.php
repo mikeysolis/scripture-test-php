@@ -1,4 +1,6 @@
 <?php
+// Landing page for the site. Also serves as a simple router
+// for the homepage and api endpoints.
 
 $request = $_SERVER['REQUEST_URI'];
 $url = explode('.', $request);
