@@ -1,7 +1,7 @@
 <?php
 
 // Autoload Composer packages
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
 $request = $_SERVER['REQUEST_URI'];
 $url = explode('.', $request);
