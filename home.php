@@ -1,5 +1,8 @@
 <?php
 
+// Autoload Composer packages
+require __DIR__ . '/vendor/autoload.php';
+
 use GraphQL\Client;
 use GraphQL\Exception\QueryError;
 use GraphQL\QueryBuilder\QueryBuilder;
