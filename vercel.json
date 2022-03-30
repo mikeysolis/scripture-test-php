@@ -4,5 +4,5 @@
       "runtime": "vercel-php@0.4.0"
     }
   },
-  "routes": [{ "src": "/(.*)", "dest": "/api/index.php" }]
+  "routes": [{ "src": "/public/(.*)", "dest": "/api/index.php" }]
 }
