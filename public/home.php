@@ -169,7 +169,7 @@ foreach ($initial_books as $book) {
           <div class="twelve columns">
             <h5 class="search-result">Search Result</h5>
             <div id="verse">
-                <p>Select a verse for it to show up here</p>
+                <p>Select a Book, then a Chapter and finally a Verse</p>
             </div>
           </div>
         </div>
@@ -232,12 +232,12 @@ foreach ($initial_books as $book) {
                 success: function(data) {
                     $.each(data, function(key, value) {
                         $('div[id="verse"]').empty();
-                        $('div[id="verse"]').append('<p>' + value['scriptureText'] + '</p>');
+                        $('div[id="verse"]').append('<p>' + value['verseNumber'] + ' ' + value['scriptureText'] + '</p>');
                     });
                 }
             });
         }else{
-            $('div[id="verse"]').append('<p>Select a verse for it to show up here</p>');
+            $('div[id="verse"]').append('<p>Select a Book, then a Chapter and finally a Verse</p>');
         }
     });
     </script>
