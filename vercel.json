@@ -1,8 +1,7 @@
 {
   "functions": {
-    "api/index.php": {
+    "api/*.php": {
       "runtime": "vercel-php@0.4.0"
     }
-  },
-  "routes": [{ "src": "/public/(.*)", "dest": "/api/index.php" }]
+  }
 }
