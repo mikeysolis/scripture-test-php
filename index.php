@@ -14,13 +14,13 @@ switch ($url[0]) {
         require __DIR__ . '/home.php';
         break;
     case '/chapters':
-        require __DIR__ . '/api/chapters.php';
+        require __DIR__ . '/chapters.php';
         break;
     case '/verses':
-        require __DIR__ . '/api/verses.php';
+        require __DIR__ . '/verses.php';
         break;
     case '/verse':
-        require __DIR__ . '/api/verse.php';
+        require __DIR__ . '/verse.php';
         break;
     default:
         http_response_code(404);

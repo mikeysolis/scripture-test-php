@@ -103,8 +103,8 @@ $initial_verses = getVerses($client);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Scripture API PHP Test</title>
     <style type="text/css">
-      <?php include 'assets/css/normalize.css';?>
-      <?php include 'assets/css/skeleton.css';?>
+      <?php include 'css/normalize.css';?>
+      <?php include 'css/skeleton.css';?>
       .container,
       .search-result {
         margin-top: 5rem;
